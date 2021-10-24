@@ -7,7 +7,7 @@ from typing import List
 import json
 import csv
 from pydantic import BaseModel
-
+from helpers import buildOutputTranslator
 import gis
 import osm
 import translator_api
@@ -15,7 +15,10 @@ import pprint
 import time
 
 start = time.time()
-print("[INFO] Program started at: ", start)
+print(
+    "[INFO] Program started at: ",
+    time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(start)),
+)
 
 ISO_COUNTRY_CODES = [
     "AZE",
@@ -46,8 +49,10 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
-    villageCounter = 0
+    villageCount = 0
     villageHit = 0
+    totalVillageCount = 0
+
     baseURL = gis.getBaseGIScountryURL(countryCode)
     # ic(baseURL)
 
@@ -56,12 +61,17 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
 
     # 1.1 Get the adm key from translator api
     villages = translator_api.getVillages(countryCode, "en")
+    totalVillageCount = len(villages)
+    print(f"[INFO] Total Village Count for {countryCode}: {totalVillageCount}")
+
     countryLang = translator_api.getRequiredLang(countryCode)
+    ic(countryLang)
     outputList = []
     with open(outputFileRaw, "w") as csv_file_raw:
         with open(outputFileTranslator, "w") as csv_file_translator:
             fieldnames_raw = ["key", "originalName", "tags"]
-            fieldnames_translator = ["key", "en", "ne"]
+            fieldnames_translator = ["key"]
+            fieldnames_translator.extend(countryLang)
             writer_raw = csv.DictWriter(
                 csv_file_raw, fieldnames=fieldnames_raw, delimiter=","
             )
@@ -71,14 +81,16 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
             writer_raw.writeheader()
             writer_translator.writeheader()
             for village in villages:
-                villageCounter += 1
+                villageCount += 1
                 name = village["enValue"]
                 key = village["key"]
-
+                print(
+                    f"[INFO] Village number {villageCount} out of {totalVillageCount} villages in {countryCode} with key: {key} and name: {name}"
+                )
                 # 1.2 Get the adm level from the key
                 admKeyCD = len(key.split("-")) - 1
                 # 1.3 Make sure we stick with the maxADM to avoid getting too many results from OSM because we will get a much larger boundary
-                if admKeyCD == MaxADM:
+                if admKeyCD >= MaxADM:
                     # 2. Get the boundary
                     boundary = gis.getBoundaries(baseURL, MaxADM, admKeyCD, key)
                     west = boundary["bbox"][0]
@@ -90,7 +102,7 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                     # 3. Query OpenStreetMaps (OSM) providing the (south, west, north, east) coordinates
                     try:
                         tags = osm.getOSMtags(south, west, north, east)
-                        # ic(tags)
+                        ic(tags)
 
                         elements = tags["elements"]
                         for element in elements:
@@ -113,27 +125,23 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                                     )
                                 ):
                                     # We have a match between translator name and OSM
-                                    output_translator = {
-                                        "key": key,
-                                        "en": name,
-                                        "ne": finalTags["name:ne"]
-                                        or finalTags["alt_name"]
-                                        or "",
-                                    }
-                                    writer_translator.writerow(output_translator)
-                                    villageHit += 1
-                                    ic(
-                                        villageHit,
-                                        villageCounter,
-                                        villageHit / villageCounter,
-                                        str(villageHit / villageCounter * 100) + "%",
+                                    output_translator = buildOutputTranslator(
+                                        countryLang, key, name, finalTags
                                     )
+                                    writer_translator.writerow(output_translator)
+                                    # Only consider a hit if we find a match in english name and there is a native name available
+                                    for lang in countryLang:
+                                        if lang != "en":
+                                            if output_translator[lang] != "":
+                                                villageHit += 1
+                                                print(
+                                                    f"[INFO] Current village hit is {villageHit} out of village count of {villageCount} and ratio is {villageHit / villageCount} and percentage hit is {str(villageHit / villageCount * 100) + '%'}"
+                                                )
+                                                break
                             except KeyError as error:
                                 ic(error)
                                 ic(finalTags)
-                            # for k, v in finalTags.items():
-                            #     if k:
-                            #         ic(name)
+
                             pp.pprint(output_raw)
                             outputList.append(output_raw)
                             writer_raw.writerow(output_raw)
@@ -142,12 +150,14 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                         ic(south, west, north, east)
                 else:
                     print(
-                        f"[INFO]Boundary will be very large for adm: {admKeyCD}, skipping key"
+                        f"[INFO]Boundary will be very large for adm key: {admKeyCD} and MaxADM: {MaxADM}, skipping key"
                     )
     return outputList
 
 
-countryCode = "NPL"
+countryCode = "EGY"
+
+
 countryRun(
     countryCode,
     "outputRaw" + countryCode + ".csv",
@@ -155,16 +165,7 @@ countryRun(
 )  ## just for testing
 
 
-for countryCode in ISO_COUNTRY_CODES:
-    countryRun(countryCode, "output" + countryCode + ".csv")
+# for countryCode in ISO_COUNTRY_CODES:
+#     countryRun(countryCode, "output" + countryCode + ".csv")
 
 ic(f"[INFO] Finished in {time.time() - start} seconds")
-
-
-# Print all the languages needed per country along with the number of villages
-# totalVillageCount = 0
-# for country in ISO_COUNTRY_CODES:
-#     villageCount = getVillages(country, "en")
-#     ic(country, getRequiredLang(country), villageCount)
-#     totalVillageCount += villageCount
-# ic(totalVillageCount)
