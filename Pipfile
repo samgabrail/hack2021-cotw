@@ -9,6 +9,8 @@ black = "*"
 [packages]
 requests = "==2.24.0"
 icecream = "*"
+overpy = "*"
+pydantic= "==1.8.1"
 
 [requires]
 python_version = "3.8"
