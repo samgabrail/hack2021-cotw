@@ -12,7 +12,10 @@ from pydantic import BaseModel
 import gis
 import osm
 import translator_api
+import pprint
+import time
 
+start = time.time()
 
 ISO_COUNTRY_CODES = [
     "AZE",
@@ -39,38 +42,49 @@ ISO_COUNTRY_CODES = [
     "VNM",
     "THA",
 ]
+pp = pprint.PrettyPrinter(indent=4)
 
-countryCode = "EGY" ## just for testing
+countryCode = "NPL" ## just for testing
+baseURL = gis.getBaseGIScountryURL(countryCode)
+# ic(baseURL)
+
+MaxADM = gis.getMaxADM(baseURL)
+# ic(MaxADM)
+
 # 1.1 Get the adm key from translator api
 villages = translator_api.getVillages(countryCode, "en")
 countryLang = translator_api.getRequiredLang(countryCode)
-name = villages[12]["enValue"]
-key = villages[12]["key"]
-ic(key)
-ic(name)
-ic(countryLang)
+outputList = []
+for village in villages:
+    name = village["enValue"]
+    key = village["key"]
 
-# 1.2 Get the adm level from the key
-admKeyCD = len(key.split("-")) - 1
-ic(admKeyCD)
-# 2. Get the boundary
-baseURL = gis.getBaseGIScountryURL(countryCode)
-ic(baseURL)
+    # 1.2 Get the adm level from the key
+    admKeyCD = len(key.split("-")) - 1
+    # 2. Get the boundary
+    boundary = gis.getBoundaries(baseURL, MaxADM, admKeyCD, key)
+    west = boundary["bbox"][0]
+    south = boundary["bbox"][1]
+    east = boundary["bbox"][2]
+    north = boundary["bbox"][3]
+    # ic(west, south, east, north)
 
-MaxADM = gis.getMaxADM(baseURL)
-ic(MaxADM)
+    # 3. Query OpenStreetMaps (OSM) providing the (south, west, north, east) coordinates
+    tags = osm.getOSMtags(south, west, north, east)
+    # ic(tags)
 
-boundary = gis.getBoundaries(baseURL, MaxADM, admKeyCD, key)
-ic(boundary)
-west = boundary["bbox"][0]
-south = boundary["bbox"][1]
-east = boundary["bbox"][2]
-north = boundary["bbox"][3]
-ic(west, south, east, north)
+    elements = tags["elements"]
+    for element in elements:
+        output = {"key": key, "originalName": name, "tags": element['tags']}
+        # pp.pprint(output)
+        outputList.append(output)
 
-# 3. Query OpenStreetMaps (OSM) providing the (south, west, north, east) coordinates
-tags = osm.getOSMtags(south, west, north, east)
-ic(tags)
+pp.pprint(outputList)
+
+
+ic(f'Finished in {time.time() - start} seconds')
+
+
 
 # Print all the languages needed per country along with the number of villages
 # totalVillageCount = 0

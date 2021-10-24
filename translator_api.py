@@ -11,7 +11,6 @@ from pydantic import BaseModel
 def getRequiredLang(country: str) -> List:
     url = f"https://translator-api-qa.taethni.com/api/languages/country/{country}"
     res = requests.get(url)
-    # ic(res.json())
     languages = [lang["code"] for lang in res.json()]
     return languages
 

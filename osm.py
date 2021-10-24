@@ -27,11 +27,7 @@ def getOSMtags(south, west, north, east):
     """
     
     overpass_query = overpass_query.format(south, west, north, east)
-    ic(overpass_query)
     response = requests.get(overpass_url, params={"data": overpass_query})
     data = response.json()
     return data
 
-
-tags = getOSMtags(24.1936295, 32.8692380, 24.2163951, 32.8862077)
-ic(tags)
