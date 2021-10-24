@@ -9,6 +9,10 @@ import overpy
 import json
 from pydantic import BaseModel
 
+import gis
+import osm
+import translator_api
+
 
 ISO_COUNTRY_CODES = [
     "AZE",
@@ -36,27 +40,37 @@ ISO_COUNTRY_CODES = [
     "THA",
 ]
 
+countryCode = "EGY" ## just for testing
+# 1.1 Get the adm key from translator api
+villages = translator_api.getVillages(countryCode, "en")
+countryLang = translator_api.getRequiredLang(countryCode)
+name = villages[12]["enValue"]
+key = villages[12]["key"]
+ic(key)
+ic(name)
+ic(countryLang)
 
-def getRequiredLang(country: str) -> List:
-    url = f"https://translator-api-qa.taethni.com/api/languages/country/{country}"
-    res = requests.get(url)
-    # ic(res.json())
-    languages = [lang["code"] for lang in res.json()]
-    return languages
+# 1.2 Get the adm level from the key
+admKeyCD = len(key.split("-")) - 1
+ic(admKeyCD)
+# 2. Get the boundary
+baseURL = gis.getBaseGIScountryURL(countryCode)
+ic(baseURL)
 
+MaxADM = gis.getMaxADM(baseURL)
+ic(MaxADM)
 
-def getVillages(country: str, language: str) -> List:
-    url = f"https://translator-api-qa.taethni.com/api/Keys/{country}/{language}"
-    res = requests.get(url)
-    res = res.json()
-    return res
+boundary = gis.getBoundaries(baseURL, MaxADM, admKeyCD, key)
+ic(boundary)
+west = boundary["bbox"][0]
+south = boundary["bbox"][1]
+east = boundary["bbox"][2]
+north = boundary["bbox"][3]
+ic(west, south, east, north)
 
-
-def getBoundaries(country):
-    url = f"https://services.arcgis.com/jpbmZUwK24tWjkHJ/ArcGIS/rest/services/{country}_1_0_0/FeatureServer/4/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token="
-    res = requests.get(url)
-    return res.json()
-
+# 3. Query OpenStreetMaps (OSM) providing the (south, west, north, east) coordinates
+tags = osm.getOSMtags(south, west, north, east)
+ic(tags)
 
 # Print all the languages needed per country along with the number of villages
 # totalVillageCount = 0
@@ -67,42 +81,6 @@ def getBoundaries(country):
 # ic(totalVillageCount)
 
 
-# res = getBoundaries("IND")
-# ic(res)
 
-# api = overpy.Overpass()
-# # fetch all ways and nodes
-# result = api.query("""
-# [out:json][timeout:25];
-# area[name="Andorra"]->.searchArea;
-# (
-#   node[place~"city|town|village|hamlet"](area.searchArea);
-# );
-# out body;
-# >;
-# out skel qt;
-# """)
 
-# ic(len(result.nodes))
-# nodes = result.nodes
-# ic(nodes)
 
-villageCount = getVillages("EGY", "en")
-countryLang = getRequiredLang("EGY")
-name = villageCount[0]["enValue"]
-name = "Giza"
-ic(name)
-ic(countryLang)
-overpass_url = "http://overpass-api.de/api/interpreter"
-overpass_query = """
-[out:json];
-area["ISO3166-1"="EG"][admin_level=2];
-(node["name:en"="{0}"](area);
-);
-out center;
-"""
-overpass_query = overpass_query.format(name)
-ic(overpass_query)
-response = requests.get(overpass_url, params={"data": overpass_query})
-data = response.json()
-ic(data)
