@@ -13,6 +13,9 @@ import osm
 import translator_api
 import pprint
 import time
+import sys
+
+countryCode = sys.argv[1]
 
 start = time.time()
 print(
@@ -155,13 +158,10 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
     return outputList
 
 
-countryCode = "EGY"
-
-
 countryRun(
     countryCode,
-    "outputRaw" + countryCode + ".csv",
-    "outputTranslator" + countryCode + ".csv",
+    "outputs/outputRaw" + countryCode + ".csv",
+    "outputs/outputTranslator" + countryCode + ".csv",
 )  ## just for testing
 
 

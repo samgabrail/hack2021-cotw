@@ -1,0 +1,51 @@
+key,originalName,tags
+UGA-835B399901-248B17886695-X-228362,Nakigudo,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1733010', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Nakigudo', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1728293', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Kabingo', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1729033', 'fixme': 'please, verify position. no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Kanyampara', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,"{'fixme': 'please, verify position.', 'name': 'Nyabirongo', 'place': 'village'}"
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'hamlet'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'hamlet'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'hamlet'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'hamlet'}
+UGA-835B72727119-248B97264778-X-232281,Kanyampara,{'place': 'village'}
+UGA-835B72727119-248B27334734-X-226560,Rutenga,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1734831', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Rutenga', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B27334734-X-226560,Rutenga,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1734842', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Rutoma', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B87216705-X-11401721,Butulya,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1729825', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Kichwamba', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'is_in:continent': 'Africa', 'is_in:country': 'Uganda', 'loc_name': 'Mutti', 'name': 'Mbarara', 'name:ko': '음바라라', 'name:ru': 'Мбарара', 'place': 'city', 'population': '195013', 'source': 'https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Uganda', 'wikidata': 'Q731039', 'wikipedia': 'en:Mbarara'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1729498', 'fixme': 'Position?', 'is_in:country': 'Uganda', 'name': 'Katozho', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1733910', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Nakiojo', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1733983', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Nyamitanga', 'place': 'village', 'source': 'GNS'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'name': 'Ruti', 'place': 'village'}"
+UGA-835B72727119-248B41946409-X-227404,Nyamitanga,"{'name': 'Kamukuzi', 'place': 'village'}"
+UGA-835B62483631-248B1366518-X-8225358,Lolim,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '11330582', 'fixme': 'no population estimate available, defaulted to village', 'name': 'Lolim', 'place': 'village', 'source': 'GNS'}"
+UGA-835B90444989-248B31404622-X-11259352,Butaja,"{'name': 'Butaja', 'place': 'village', 'source': 'Uganda villages shape file UBOS 2011'}"
+UGA-835B90444989-248B31404622-X-11259352,Butaja,"{'name': 'Buboko', 'place': 'village', 'source': 'Uganda villages shape file UBOS 2011'}"
+UGA-835B62483631-248B1952876-X-227261,Ochebu,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1727933', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Goromi', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B1952876-X-227261,Ochebu,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '11330088', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Ora', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B1952876-X-227261,Ochebu,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1734126', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Uchebu', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B1952876-X-227261,Ochebu,"{'addr:county': 'Madi Okollo', 'addr:district': 'Arua', 'addr:parish': 'Ocebu', 'addr:subcounty': 'Offaka', 'generator:source': 'solar', 'name': 'Ombaci', 'place': 'village'}"
+UGA-835B62483631-248B10059782-X-8080281,Leleo,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '11327168', 'fixme': 'no population estimate available, defaulted to village', 'name': 'Leleo', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B10059782-X-8080281,Leleo,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '-1734533', 'fixme': 'no population estimate available, defaulted to village', 'name': 'Pagwata', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'hamlet'}
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'hamlet'}
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'hamlet'}
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'village'}
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'hamlet'}
+UGA-835B62483631-248B10059782-X-8080281,Leleo,{'place': 'hamlet'}
+UGA-835B399901-248B49161681-X-228480,Najjembe,"{'name': 'Najjembe', 'place': 'village'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '11330240', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Aupi', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'GNS:dsg_code': 'PPL', 'GNS:dsg_string': 'populated place', 'GNS:id': '11330241', 'fixme': 'no population estimate available, defaulted to village', 'is_in:country': 'Uganda', 'name': 'Ombokoro', 'place': 'village', 'source': 'GNS'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'addr:county': 'Vurra', 'addr:district': 'Arua', 'addr:parish': 'Ewa', 'addr:subcounty': 'Ajia', 'generator:source': 'solar', 'name': 'Ombatini', 'place': 'village'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'addr:county': 'Vurra', 'addr:district': 'Arua', 'addr:parish': 'Ewa', 'addr:subcounty': 'Ajia', 'generator:source': 'solar', 'name': 'Ombaderuku', 'place': 'village'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'addr:county': 'Vurra', 'addr:district': 'Arua', 'addr:parish': 'Ombokoro', 'addr:subcounty': 'Ajia', 'name': 'Oci', 'place': 'village'}"
+UGA-835B62483631-248B97714136-X-8081219,Aupi,"{'addr:county': 'Vurra', 'addr:district': 'Arua', 'addr:parish': 'Ajia', 'addr:subcounty': 'Ajia', 'generator:source': 'solar', 'name': 'Agbuaya', 'place': 'village'}"
