@@ -5,15 +5,17 @@ Map English names of village locations to their native names
 ## Running the script using Docker
 Note: Output CSV files are stored in an `outputs` folder in this repo. You can map a volume on your local machine to the container folder using `-v` as shown below.
 
-Clone this repository and run:
+Run:
 
 ```sh
-docker run -d -e countryCode=<countryCode> -v <absolute_path_on_host>:/app/outputs samgabrail/cotw:latest
+export countryCode=<countryCode>
+docker run -d --name ${countryCode} -e countryCode=${countryCode} -v <absolute_path_on_host>:/app/outputs samgabrail/cotw:latest
 ```
 
 Example:
 ```sh
-docker run -d -e countryCode=AZE -v /home/sam/Development_Linux/hack2021-cotw/outputs:/app/outputs samgabrail/cotw:latest
+export countryCode=AZE
+docker run -d --name ${countryCode} -e countryCode=${countryCode} -v /home/sam/Development_Linux/hack2021-cotw/outputs:/app/outputs samgabrail/cotw:latest
 ```
 
 ## Running the script using Python
