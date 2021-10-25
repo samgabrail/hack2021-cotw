@@ -1,5 +1,4 @@
 from os import name
-from pydantic import BaseModel
 from typing import List
 
 try:

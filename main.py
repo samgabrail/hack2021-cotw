@@ -4,18 +4,16 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
 from typing import List
-import json
 import csv
-from pydantic import BaseModel
 from helpers import buildOutputTranslator
 import gis
 import osm
 import translator_api
 import pprint
 import time
-import sys
+import os
 
-countryCode = sys.argv[1]
+countryCode = os.environ['countryCode']
 
 start = time.time()
 print(

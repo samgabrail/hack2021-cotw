@@ -5,7 +5,6 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 
 from typing import List
 import requests
-from pydantic import BaseModel
 
 
 def getRequiredLang(country: str) -> List:

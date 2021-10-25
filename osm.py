@@ -3,11 +3,7 @@ try:
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
 
-from typing import List
 import requests
-import overpy
-import json
-from pydantic import BaseModel
 
 
 def getOSMtags(south, west, north, east):

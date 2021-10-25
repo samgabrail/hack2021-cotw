@@ -5,9 +5,6 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
 
 from typing import List
 import requests
-import overpy
-import json
-from pydantic import BaseModel
 
 
 def getBaseGIScountryURL(countryCode: str) -> str:
