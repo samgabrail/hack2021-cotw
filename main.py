@@ -12,8 +12,12 @@ import translator_api
 import pprint
 import time
 import os
+from decimal import Decimal
 
-countryCode = os.environ['countryCode']
+FOURPLACES = Decimal(10) ** -4
+
+
+countryCode = os.environ["countryCode"]
 
 start = time.time()
 print(
@@ -49,7 +53,7 @@ ISO_COUNTRY_CODES = [
 pp = pprint.PrettyPrinter(indent=4)
 
 
-def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
+def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str) -> dict:
     villageCount = 0
     villageHit = 0
     totalVillageCount = 0
@@ -67,7 +71,6 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
 
     countryLang = translator_api.getRequiredLang(countryCode)
     ic(countryLang)
-    outputList = []
     with open(outputFileRaw, "w") as csv_file_raw:
         with open(outputFileTranslator, "w") as csv_file_translator:
             fieldnames_raw = ["key", "originalName", "tags"]
@@ -135,8 +138,10 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                                         if lang != "en":
                                             if output_translator[lang] != "":
                                                 villageHit += 1
+                                                ratio = Decimal(villageHit / villageCount).quantize(FOURPLACES)
+                                                percent = str(ratio * 100) + "%"
                                                 print(
-                                                    f"[INFO] Current village hit is {villageHit} out of village count of {villageCount} and ratio is {villageHit / villageCount} and percentage hit is {str(villageHit / villageCount * 100) + '%'}"
+                                                    f"[INFO] Current village hit is {villageHit} out of village count of {villageCount} and ratio is {ratio} and percentage hit is {percent}"
                                                 )
                                                 break
                             except KeyError as error:
@@ -144,7 +149,6 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                                 ic(finalTags)
 
                             pp.pprint(output_raw)
-                            outputList.append(output_raw)
                             writer_raw.writerow(output_raw)
                     except:
                         ic("Data error")
@@ -153,10 +157,11 @@ def countryRun(countryCode: str, outputFileRaw: str, outputFileTranslator: str):
                     print(
                         f"[INFO]Boundary will be very large for adm key: {admKeyCD} and MaxADM: {MaxADM}, skipping key"
                     )
-    return outputList
+    stats = {"villageHit": villageHit, "totalVillageCount": totalVillageCount}
+    return stats
 
 
-countryRun(
+stats = countryRun(
     countryCode,
     "outputs/outputRaw" + countryCode + ".csv",
     "outputs/outputTranslator" + countryCode + ".csv",
@@ -165,5 +170,10 @@ countryRun(
 
 # for countryCode in ISO_COUNTRY_CODES:
 #     countryRun(countryCode, "output" + countryCode + ".csv")
+ratio = Decimal(stats["villageHit"] / stats["totalVillageCount"]).quantize(FOURPLACES)
+percent = str(ratio * 100) + "%"
+print(
+    f"[INFO] The final stats: village hit is {stats['villageHit']} out of a total village count of {stats['totalVillageCount']} and ratio is {ratio} and percentage hit is {percent}"
+)
 
 ic(f"[INFO] Finished in {time.time() - start} seconds")

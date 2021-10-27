@@ -16,7 +16,7 @@ docker run -d --name ${countryCode} -e countryCode=${countryCode} -v <absolute_p
 
 Example:
 ```sh
-export countryCode=AZE
+export countryCode=ETH
 docker run -d --name ${countryCode} -e countryCode=${countryCode} -v /home/ubuntu/cotw/outputs:/app/outputs samgabrail/cotw:latest
 ```
 
@@ -24,9 +24,15 @@ docker run -d --name ${countryCode} -e countryCode=${countryCode} -v /home/ubunt
 
 Clone this repository. Then run:
 
-`python main.py <countryCode>`
+```sh
+export countryCode=<countryCode>
+python main.py
+```
 Example:
-`python main.py EGY`
+```sh
+export countryCode=BTN
+python main.py
+```
 
 ## Process
 1. Get the adm key from translator api and calculate the adm level for each key by counting the dashes
