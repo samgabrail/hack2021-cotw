@@ -17,7 +17,7 @@ def getBaseGIScountryURL(countryCode: str) -> str:
     return "Could not find URL"
 
 def getMaxADM(baseURL: str) -> int:
-    """Get the maximum layer level, for NPL its adm4 so this function will return 4"""
+    """Get the maximum layer level, for NPL, its adm4 so this function will return 4"""
     url = f"{baseURL}/?f=pjson"
     res = requests.get(url)
     layers = res.json()["layers"]
