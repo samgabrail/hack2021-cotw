@@ -43,3 +43,4 @@ python main.py
 
 ## Output
 2 files for each country. Files are located in the `outputs` folder
+
